@@ -4,7 +4,7 @@ LUA_TARGET= LUA_T='lua.wasm' LUAC_T='lua.wasm'
 INCLUDE_LUA= -I/lua-5.1.5/src
 WASMC= emcc -s WASM=1
 
-all: out-dir lua.wasm cjson.wasm lua_interop.wasm
+all: out-dir lua.wasm cjson.wasm lua_interop.wasm webpage
 
 out-dir:
 	mkdir -p $(OUT_DIR)
@@ -25,6 +25,9 @@ lua_interop.wasm:
          --preload-file $(OUT_DIR)@/ \
          lua-interop/lua_interop.c /lua-5.1.5/src/liblua.a \
          -o ${OUT_DIR}lua-interop.js
+
+webpage:
+	cp -rp ./web/* $(OUT_DIR)
 
 clean:
 	rm -rf out/

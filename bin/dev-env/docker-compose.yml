@@ -9,3 +9,5 @@ services:
     volumes:
        - ../..:/code
     working_dir: /code
+    ports:
+        - "8080:8080"

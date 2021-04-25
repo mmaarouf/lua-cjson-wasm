@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source `dirname $BASH_SOURCE`/dev-env/runner
+
+run emrun --no_browser --port 8080 ./out
