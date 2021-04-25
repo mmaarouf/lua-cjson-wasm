@@ -1,18 +1,19 @@
 FROM debian:bullseye-slim
 
+# Installing wasm
 RUN mkdir -p /usr/share/man/man1 && \
     apt update && \
     apt install  -y \
         git \
-        python \
-        openjdk-11-jdk
-
-# Installing wasm
-RUN git clone https://github.com/emscripten-core/emsdk.git && \
+        python3 \
+        openjdk-11-jdk \
+        cmake \
+        xz-utils \
+        lbzip2 && \
+    git clone https://github.com/emscripten-core/emsdk.git && \
     cd emsdk &&\
-    ./emsdk update-tags && \
-    ./emsdk install latest && \
-    ./emsdk activate latest && \
+    ./emsdk install tot && \
+    ./emsdk activate tot && \
     echo "source /emsdk/emsdk_env.sh" >> ~/.bashrc
 
 # Installing lua dependencies
