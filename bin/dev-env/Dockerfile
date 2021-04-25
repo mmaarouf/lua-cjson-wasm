@@ -7,8 +7,8 @@ RUN mkdir -p /usr/share/man/man1 && \
         python \
         openjdk-11-jdk
 
-RUN echo "===Installing wasm===" && \
-    git clone https://github.com/emscripten-core/emsdk.git && \
+# Installing wasm
+RUN git clone https://github.com/emscripten-core/emsdk.git && \
     cd emsdk &&\
     ./emsdk update-tags && \
     ./emsdk install latest && \
