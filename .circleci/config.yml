@@ -1,0 +1,10 @@
+version: 2
+jobs:
+
+  build:
+    machine: true
+
+    steps:
+      - checkout
+
+      - run: . ./bin/dev-env/runner && run echo "hi"

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source `dirname $BASH_SOURCE`/runner
+
+$DOCKER_COMPOSE down

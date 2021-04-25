@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -eu
+
+PROJECT_NAME=lua-cjson-wasm
+DEV_CONTAINER=$PROJECT_NAME-dev-env
+DOCKER_COMPOSE="docker-compose -f `dirname $BASH_SOURCE`/docker-compose.yml"
+
+if [ -z $PROJECT_NAME ]; then
+    red='\033[0;31m'
+    no_colour='\033[0m'
+    printf "${red}Error: ${no_colour}\$PROJECT_NAME in ./bin/dev-env/runner is not set.\n"
+    exit 1
+fi
+
+run_in_container() {
+    set -u
+    command=$@
+    running_container=`docker ps --format '{{.Names}}' | grep -s "^$DEV_CONTAINER$" | head -n 1`
+
+    if [[ -n $running_container ]]; then
+        echo Running in existing container
+        $DOCKER_COMPOSE exec $DEV_CONTAINER bash -c "$command"
+    else
+        echo Running in new container
+        $DOCKER_COMPOSE run --rm --service-ports $DEV_CONTAINER -c "$command"
+    fi
+}
+
+run() {
+    set -u
+    command=$@
+
+    if [[ -f /.dockerenv ]]; then # check if we're in the container
+        bash -c "$command"
+    else
+        run_in_container $command
+    fi
+}
+
+inline_function() {
+    set -u
+    function=$1
+    declare -f $function | sed '1,2d;$d' | tr -d '\n'
+}
+
+run_function() {
+    set -u
+    function=$1
+    run "`inline_function $function`"
+}

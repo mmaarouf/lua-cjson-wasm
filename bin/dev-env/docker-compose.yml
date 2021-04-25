@@ -1,0 +1,11 @@
+version: '3.2'
+# REPLACE ALL "lua-cjson-wasm" with the actual project name.
+services:
+  lua-cjson-wasm-dev-env:
+    container_name: 'lua-cjson-wasm-dev-env'
+    image: 'mmaarouf/lua-cjson-wasm-dev-env:latest'
+    stdin_open: true
+    tty: true
+    volumes:
+       - ../..:/code
+    working_dir: /code
