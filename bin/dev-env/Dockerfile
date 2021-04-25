@@ -12,8 +12,8 @@ RUN mkdir -p /usr/share/man/man1 && \
         lbzip2 && \
     git clone https://github.com/emscripten-core/emsdk.git && \
     cd emsdk &&\
-    ./emsdk install tot && \
-    ./emsdk activate tot && \
+    ./emsdk install 2.0.18 && \
+    ./emsdk activate 2.0.18 && \
     echo "source /emsdk/emsdk_env.sh" >> ~/.bashrc
 
 # Installing lua dependencies
