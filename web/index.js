@@ -1,7 +1,7 @@
 const luaInteropWorker = new Worker("lua-interop-worker.js");
 
 const onLuaRunnerReady = () => {
-    luaInteropWorker.postMessage({name: 'run-lua', body: 'print hi; return 5'})
+    luaInteropWorker.postMessage({name: 'run-lua', body: 'print "hi"; return 5'})
 }
 
 const messageHandlers = {

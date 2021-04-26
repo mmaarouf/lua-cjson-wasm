@@ -23,7 +23,7 @@ onmessage = ({data: {name, body}}) => {
     console.log(body)
     const logUndefinedHandler = () => console.error(`No handler defined for ${name} in worker`);
 
-    (messageHandlers[name] || logUndefinedHandler)(body)
+    console.log((messageHandlers[name] || logUndefinedHandler)(body));
 }
 
 self.importScripts('lua-interop.js')

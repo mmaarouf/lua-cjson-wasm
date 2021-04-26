@@ -5,6 +5,8 @@
 #include <lualib.h>
 #include <emscripten/emscripten.h>
 
+const char* SCRIPT_TEMPLATE = "return require('runner').run(function() %s end)";
+
 const char* copyString(const char* toCopy) {
     char* newstr = (char*) malloc(strlen(toCopy) + 1);
 
@@ -16,18 +18,21 @@ const char* copyString(const char* toCopy) {
 
 EMSCRIPTEN_KEEPALIVE
 const char* runLua(const char* script) {
+
+    const int scriptLen = strlen(SCRIPT_TEMPLATE) + strlen(script);
+    char fullScript[scriptLen];
+    sprintf(fullScript, SCRIPT_TEMPLATE, script);
+
     lua_State* lua = luaL_newstate();
     luaL_openlibs(lua);
 
-    luaL_dostring(lua, script);
+    luaL_dostring(lua, fullScript);
 
-    size_t len = 0;
-    const char* result = lua_tostring(lua, -1);//, &len);
+    const char* result = lua_tostring(lua, -1);
 
-    // making a copy because large strings get freed on the `lua_close(lua)` call.
+    // allocate string on heap
     const char* copyOfResult = copyString(result);
 
     lua_close(lua);
-
     return copyOfResult;
 }
