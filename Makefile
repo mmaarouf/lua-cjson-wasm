@@ -1,6 +1,6 @@
 OUT_DIR= out/
 CJSON_TARGET= TARGET='cjson.wasm'
-LUA_TARGET= LUA_T='lua.wasm' LUAC_T='lua.wasm'
+LUA_TARGET= LUA_T='lua.wasm' LUAC_T='luac.wasm'
 INCLUDE_LUA= -I/lua-5.1.5/src
 WASMC= emcc -s WASM=1
 
