@@ -5,13 +5,25 @@
  * Therefore using web workers to load and execute the wasm module functions.
  */
 var Module = {
-  print: text => console.log(text),
-  printErr: text => console.error(text),
-  onRuntimeInitialized: () => console.log("ready"),
+    print: text => console.log(text),
+    printErr: text => console.error(text),
+    onRuntimeInitialized: () => postMessage({name: 'lua-runner-ready'}),
 };
 
 const runLua = (code) => {
-  return Module.ccall("runLua", 'string', ['string'], [code]);
+    return Module.ccall("runLua", 'string', ['string'], [code]);
+}
+
+const messageHandlers = {
+    'run-lua': runLua
+}
+
+onmessage = ({data: {name, body}}) => {
+    console.log(name)
+    console.log(body)
+    const logUndefinedHandler = () => console.error(`No handler defined for ${name} in worker`);
+
+    (messageHandlers[name] || logUndefinedHandler)(body)
 }
 
 self.importScripts('lua-interop.js')
