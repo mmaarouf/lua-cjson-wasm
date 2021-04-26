@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+source `dirname $BASH_SOURCE`/dev-env/runner
+
+run_tests() {
+    cd ./lua-runner
+    busted -m=./src/?.lua test/
+}
+
+run_function run_tests
