@@ -6,8 +6,8 @@ describe('runner', function()
         local fn_to_run = function() return 'hello' end
 
         local actual = runner.run(fn_to_run)
-
         local expected = '{"result":"ok","data":"hello"}'
+
         assert.equals(expected, actual)
     end)
 
@@ -16,8 +16,18 @@ describe('runner', function()
         local fn_to_run = function() error('error message', no_error_position_level) end
 
         local actual = runner.run(fn_to_run)
-
         local expected = '{"result":"error","data":"error message"}'
+
         assert.equals(expected, actual)
     end)
+
+    it('should serialise the data if function returns a table', function()
+       local fn_to_run = function() return { greeting = 'hello' }  end
+
+       local actual = runner.run(fn_to_run)
+       local expected = '{"result":"ok","data":{"greeting":"hello"}}'
+
+       assert.equals(expected, actual)
+    end)
+
 end)
