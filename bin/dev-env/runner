@@ -19,7 +19,7 @@ run_in_container() {
 
     if [[ -n $running_container ]]; then
         echo Running in existing container
-        $DOCKER_COMPOSE exec $DEV_CONTAINER bash -c "$command"
+        $DOCKER_COMPOSE exec $DEV_CONTAINER bash -l -c "$command"
     else
         echo Running in new container
         $DOCKER_COMPOSE run --rm --service-ports $DEV_CONTAINER -c "$command"
