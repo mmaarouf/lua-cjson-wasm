@@ -3,31 +3,39 @@ local runner = require 'runner'
 describe('runner', function()
 
     it('should return successful result of function in json', function()
-        local fn_to_run = function() return 'hello' end
+        local script = 'return "hello"'
 
-        local actual = runner.run(fn_to_run)
+        local actual = runner.run(script)
         local expected = '{"result":"ok","data":"hello"}'
 
         assert.equals(expected, actual)
     end)
 
     it('should return unseccessful result with error message when error occurs', function()
-        local no_error_position_level = 0
-        local fn_to_run = function() error('error message', no_error_position_level) end
+        local script = 'error("error message", 0)'
 
-        local actual = runner.run(fn_to_run)
+        local actual = runner.run(script)
         local expected = '{"result":"error","data":"error message"}'
 
         assert.equals(expected, actual)
     end)
 
     it('should serialise the data if function returns a table', function()
-       local fn_to_run = function() return { greeting = 'hello' }  end
+       local script = 'return { greeting = "hello" }'
 
-       local actual = runner.run(fn_to_run)
+       local actual = runner.run(script)
        local expected = '{"result":"ok","data":{"greeting":"hello"}}'
 
        assert.equals(expected, actual)
+    end)
+
+    it('should return luac error when script is malformed', function()
+        local script = 'a =? "hi"'
+
+        local actual = runner.run(script)
+        local expected = '{"result":"error","data":"[string \\"a =? \\"hi\\"\\"]:1: unexpected symbol near \'?\'"}'
+
+        assert.equals(expected, actual)
     end)
 
 end)

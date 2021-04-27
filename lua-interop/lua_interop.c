@@ -5,7 +5,7 @@
 #include <lualib.h>
 #include <emscripten/emscripten.h>
 
-const char* SCRIPT_TEMPLATE = "return require('runner').run(function() %s end)";
+const char* SCRIPT_TEMPLATE = "return require('runner').run([[ %s ]])";
 
 const char* copyString(const char* toCopy) {
     char* newstr = (char*) malloc(strlen(toCopy) + 1);
