@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 source `dirname $BASH_SOURCE`/dev-env/runner
 
+set +u
 run make $1

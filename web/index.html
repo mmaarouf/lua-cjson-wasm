@@ -17,14 +17,14 @@
 
             <div class="columnContainer">
                 <strong>Lua script to run:</strong>
-                <textarea>return 'hello'</textarea/>
+                <textarea id="script_area">return 'hello'</textarea/>
             </div>
 
-            <button onclick='() => console.log("hello")'>Run</button>
+            <button onclick="onRunClick()">Run</button>
 
             <div class="columnContainer">
                 <strong>Result:</strong>
-                <div id="result"/>
+                <div id="result_area"/>
             </div>
 
         </div>

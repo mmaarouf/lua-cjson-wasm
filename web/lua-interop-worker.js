@@ -19,11 +19,10 @@ const messageHandlers = {
 }
 
 onmessage = ({data: {name, body}}) => {
-    console.log(name)
-    console.log(body)
     const logUndefinedHandler = () => console.error(`No handler defined for ${name} in worker`);
 
-    console.log((messageHandlers[name] || logUndefinedHandler)(body));
+    const result = (messageHandlers[name] || logUndefinedHandler)(body);
+    postMessage({name: 'lua-script-evaluated', body: result})
 }
 
 self.importScripts('lua-interop.js')

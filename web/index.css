@@ -33,7 +33,7 @@ body {
     border-color: #555;
 }
 
-#result {
+#result_area {
     height: 45rem;
     overflow-y: auto;
     border-color: #555;
