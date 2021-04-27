@@ -5,12 +5,19 @@ const runLuaScript = () => {
     luaInteropWorker.postMessage({name: 'run-lua', body: luaScript})
 }
 
-const handleScriptResult = (result) => {
-    document.getElementById('result_area').innerHTML = result
+const initPage = () => {
+    document.getElementById('script_area').innerHTML = "return 'hello world'"
+    runLuaScript()
+}
+
+const handleScriptResult = ({result, data}) => {
+    const resultTextarea = document.getElementById('result_area')
+    result_area.className = result === 'ok' ? 'success' : 'error'
+    resultTextarea.innerHTML = data
 }
 
 const messageHandlers = {
-    'lua-runner-ready': runLuaScript,
+    'lua-runner-ready': initPage,
     'lua-script-evaluated': handleScriptResult,
 }
 

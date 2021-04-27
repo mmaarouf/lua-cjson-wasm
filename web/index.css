@@ -26,7 +26,7 @@ body {
     flex-direction: column;
 }
 
-.columnContainer textarea {
+#script_area {
     height: 45rem;
     overflow-y: auto;
     resize: none;
@@ -42,3 +42,10 @@ body {
     background: white;
 }
 
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
