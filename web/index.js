@@ -27,6 +27,4 @@ luaInteropWorker.onmessage = ({data: {name, body}}) => {
     (messageHandlers[name] || logUndefinedHandler)(body)
 }
 
-const onRunClick = () => {
-    runLuaScript()
-}
+const onRunClick = () => runLuaScript()
