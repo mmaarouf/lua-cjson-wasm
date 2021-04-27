@@ -1,5 +1,3 @@
-const luaInteropWorker = new Worker('lua-interop-worker.js');
-
 const runLuaScript = () => {
     const luaScript = document.getElementById('script_area').value
     luaInteropWorker.postMessage({name: 'run-lua', body: luaScript})
@@ -20,6 +18,8 @@ const messageHandlers = {
     'lua-runner-ready': initPage,
     'lua-script-evaluated': handleScriptResult,
 }
+
+const luaInteropWorker = new Worker('lua-interop-worker.js');
 
 luaInteropWorker.onmessage = ({data: {name, body}}) => {
     const logUndefinedHandler = () => console.error(`No handler defined for ${name} in main`);
