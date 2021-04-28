@@ -4,7 +4,7 @@ LUA_TARGET= LUA_T='lua.wasm' LUAC_T='luac.wasm'
 INCLUDE_LUA= -I/lua-5.1.5/src
 WASMC= emcc -s WASM=1
 
-all: out-dir lua.wasm cjson.wasm lua_interop.wasm webpage lua_runner
+all: out-dir lua_runner lua.wasm cjson.wasm lua_interop.wasm webpage
 
 out-dir:
 	mkdir -p $(OUT_DIR)
