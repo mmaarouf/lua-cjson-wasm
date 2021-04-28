@@ -38,12 +38,13 @@ Main project commands:
 * `./bin/shell` - shells into the development environment
 * `./bin/clean` - deletes compiled artifacts
 
-To run the project; `./bin/build && ./bin/run`
+To run the project: `./bin/build && ./bin/run`
 
 #### Development environment commands
 
 When running commands under `./bin/` a new ephemeral docker container is spun up to execute the command.
-However to start a single container and have it run in the background use `./bin/dev-env/start`.
-With that you can have the project running in one terminal, and be `shell`ed in in another.
 
-To stop use `./bin/dev-env/stop`.
+Alternatively you can start single container and have it run in the background using `./bin/dev-env/start`.
+That allows you to do things such as have the project running in one terminal, and be `shell`ed into the development environment in another.
+
+To stop, use: `./bin/dev-env/stop`.
