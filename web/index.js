@@ -28,3 +28,9 @@ luaInteropWorker.onmessage = ({data: {name, body}}) => {
 }
 
 const onRunClick = () => runLuaScript()
+
+const onScriptKeyUp = (e) => {
+    const controlEnter = e.keyCode === 13 && e.ctrlKey
+    if (controlEnter)
+        runLuaScript();
+}
