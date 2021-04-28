@@ -19,9 +19,11 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    width:70%;
 }
 
 .columnContainer {
+    width: 40%;
     min-width: 25rem;
     display: flex;
     flex-direction: column;
