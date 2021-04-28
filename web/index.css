@@ -1,5 +1,6 @@
 body {
-    background: #c2d9ff;
+    background: #262626;
+    color: white;
 }
 
 .content {
@@ -30,14 +31,16 @@ body {
     height: 45rem;
     overflow-y: auto;
     resize: none;
-    border-color: #555;
+    border-color: #222;
+    border-radius: 5px;
 }
 
 #result_area {
     height: 45rem;
     overflow-y: auto;
-    border-color: #555;
+    border-color: #222;
     resize: none;
+    border-radius: 5px;
 }
 
 .success {
@@ -46,4 +49,25 @@ body {
 
 .error {
     color: red;
+}
+
+#run_button {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem;
+    background: #00e6db;
+    border: none;
+    margin: 2px;
+    font-weight: bold;
+    color: #262626;
+}
+
+#run_button:hover {
+    background: #00d4ca;
+}
+
+#run_button:active {
+    background: #00bfb6;
+    color: black;
 }
