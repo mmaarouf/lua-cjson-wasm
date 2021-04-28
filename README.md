@@ -5,7 +5,7 @@ Project to demo executing lua code that dynamically loads a secondary library in
 ## How it works
 
 * When "RUN" is clicked, the lua script is passed to [`lua_interop`](/lua-interop/lua_interop.c)
-* The module will pass the script to be executed to the lua runtime in the [`runner.lua`](/lua-runner/runner.lua) module
+* The module will pass the script to be executed to the lua runtime in the [`runner.lua`](/lua-runner/src/runner.lua) module
 * The result of the script is wrapped in a "result" lua table, serialised to JSON using the [lua-cjson](https://github.com/openresty/lua-cjson/) library and then returned
 * `lua_interop` will pass the result back to the webpage
 * The webpage will parse the json and display the result on the screen with green/red highlighting based on the result status
