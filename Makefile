@@ -21,7 +21,7 @@ cjson.wasm:
 lua_interop.wasm:
 	$(WASMC) $(INCLUDE_LUA) -O2 \
          -s MAIN_MODULE=1 \
-         -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" \
+         -s "EXPORTED_RUNTIME_METHODS=['ccall']" \
          --preload-file $(OUT_DIR)@/ \
          lua-interop/lua_interop.c /lua-5.1.5/src/liblua.a \
          -o ${OUT_DIR}lua-interop.js
