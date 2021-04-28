@@ -1,5 +1,7 @@
 OUT_DIR= out/
-CJSON_TARGET= TARGET='cjson.wasm'
+CJSON_WASM=cjson.wasm
+CJSON_TARGET= TARGET='$(CJSON_WASM)'
+CJSON_LDFLAGS= '' # override the -shared flag (deprecated in emcc)
 LUA_TARGET= LUA_T='lua.wasm' LUAC_T='luac.wasm'
 INCLUDE_LUA= -I/lua-5.1.5/src
 WASMC= emcc -s WASM=1
@@ -15,8 +17,10 @@ lua.wasm:
 
 cjson.wasm:
 	cd /lua-cjson && \
-        make CC='$(WASMC) -s SIDE_MODULE=1 -s EXPORT_ALL=1 $(INCLUDE_LUA)' $(CJSON_TARGET)
-	cp /lua-cjson/cjson.wasm out/cjson.so
+        make CC='$(WASMC) -s SIDE_MODULE=1 -s EXPORT_ALL=1 $(INCLUDE_LUA)' \
+			CJSON_LDFLAGS=$(CJSON_LDFLAGS) \
+			$(CJSON_TARGET)
+	cp /lua-cjson/$(CJSON_WASM) out/cjson.so
 
 lua_interop.wasm:
 	$(WASMC) $(INCLUDE_LUA) -O2 \
