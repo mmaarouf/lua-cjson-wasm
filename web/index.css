@@ -71,3 +71,19 @@ body {
     background: #00bfb6;
     color: black;
 }
+
+#run_button .tooltiptext {
+    visibility: hidden;
+    /* width: 120px; */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+}
+
+#run_button:hover .tooltiptext {
+  visibility: visible;
+}
