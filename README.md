@@ -1,4 +1,4 @@
-# lua-cjson-wasm
+# lua-cjson-wasm ![pipeline](https://github.com/mmaarouf/lua-cjson-wasm/actions/workflows/pipeline.yml/badge.svg)
 
 Project to demo executing lua code that dynamically loads a secondary library in the browser using WebAssembly.
 

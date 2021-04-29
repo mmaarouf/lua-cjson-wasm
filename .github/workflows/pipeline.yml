@@ -1,4 +1,4 @@
-name: lua cjson wasm pipeline
+name: pipeline
 on: [push]
 jobs:
     pipeline:
