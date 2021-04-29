@@ -1,0 +1,8 @@
+name: lua cjson wasm pipeline
+on: [push]
+jobs:
+    pipeline:
+        runs-on: ubuntu-latest
+        steps:
+            - run: which docker
+            - run : which docker-compose
