@@ -9,4 +9,7 @@ jobs:
               with:
                   username: ${{ secrets.DOCKER_HUB_USERNAME }}
                   password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            - run: ./bin/test-lua-runner
+            - name: Check out repository code
+              uses: actions/checkout@v2
+            - name: Run lua-runner tests
+              run: ./bin/test-lua-runner
