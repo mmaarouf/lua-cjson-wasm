@@ -4,5 +4,9 @@ jobs:
     pipeline:
         runs-on: ubuntu-latest
         steps:
-            - run: which docker
-            - run : which docker-compose
+            - name: Dockerhub log in
+              uses: docker/login-action@v1
+              with:
+                  username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                  password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+            - run: ./bin/test-lua-runner
