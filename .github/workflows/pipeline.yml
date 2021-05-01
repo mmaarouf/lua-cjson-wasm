@@ -1,8 +1,8 @@
 name: pipeline
 on: [push, pull_request]
 jobs:
-    if: ${{ github.ref != 'refs/heads/github-pages' }}
     pipeline:
+        if: github.ref != 'refs/heads/github-pages'
         runs-on: ubuntu-latest
         steps:
             - name: Dockerhub log in
