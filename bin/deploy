@@ -13,10 +13,9 @@ version=$1
 
 recreate_deployment_branch() {
     git fetch
-    if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
-        git branch -D $DEPLOY_BRANCH
+    if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
+        git branch $DEPLOY_BRANCH
     fi
-    git branch $DEPLOY_BRANCH
 }
 
 publish_artifacts_to_deployment_branch() {
