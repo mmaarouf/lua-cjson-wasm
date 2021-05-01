@@ -8,6 +8,8 @@ fi
 
 version=$1
 
+echo "Deploying v$1"
+
 public_dir=/tmp/gh-pages
 
 rm -rf $public_dir
