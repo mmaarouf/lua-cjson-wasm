@@ -1,6 +1,7 @@
 name: pipeline
 on: [push, pull_request]
 jobs:
+    if: ${{ github.ref != 'refs/heads/github-pages' }}
     pipeline:
         runs-on: ubuntu-latest
         steps:
