@@ -22,7 +22,7 @@ recreate_deployment_branch() {
 
 publish_artifacts_to_deployment_branch() {
     echo "Cleaning deployment dir '$DEPLOY_DIR'"
-    git checkout origin/$DEPLOY_BRANCH
+    git checkout $DEPLOY_BRANCH
     if [[ -d $DEPLOY_DIR ]]; then
         rm -rf $DEPLOY_DIR
     fi
