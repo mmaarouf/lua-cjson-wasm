@@ -79,3 +79,5 @@ luac.out
 
 *.wasm
 out/
+
+!github-pages
