@@ -1,5 +1,5 @@
 name: pipeline
-on: [push]
+on: [push, pull_request]
 jobs:
     pipeline:
         runs-on: ubuntu-latest
@@ -20,6 +20,7 @@ jobs:
               run: ./bin/build
 
             - name: "Deploy :rocket:"
+              if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
               run: |
                   git config --global user.name "GitHub Action"
                   git config --global user.email "github-action@users.noreply.github.com"
