@@ -3,7 +3,6 @@ set -e
 
 DEPLOY_BRANCH=github-pages
 DEPLOY_DIR=github-pages
-TEMP_DIR=/tmp/$DEPLOY_DIR
 
 if [[ -z $1 ]]; then
     echo "Usage: ./bin/deploy [version]"
@@ -12,41 +11,34 @@ fi
 
 version=$1
 
-copy_artefacts_to_temp_dir() {
-    rm -rf $TEMP_DIR
-    mkdir -p $TEMP_DIR
-
-    cp -p ./out/index.html $TEMP_DIR
-    cp -p ./out/index.css $TEMP_DIR
-    cp -p ./out/index.js $TEMP_DIR
-    cp -p ./out/lua-interop-worker.js $TEMP_DIR
-    cp -p ./out/lua-interop.wasm $TEMP_DIR
-}
-
-preprare_deployment_branch() {
-    if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
-        git branch $DEPLOY_BRANCH
+recreate_deployment_branch() {
+    if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
+        git branch -D $DEPLOY_BRANCH
     fi
+    git branch $DEPLOY_BRANCH
 }
 
 publish_artifacts_to_deployment_branch() {
     git checkout $DEPLOY_BRANCH
-
     if [[ -d $DEPLOY_DIR ]]; then
         echo yo
         git rm -r $DEPLOY_DIR
     fi
 
     mkdir -p $DEPLOY_DIR
-    cp -rp $TEMP_DIR/* $DEPLOY_DIR
+    cp -p ./out/index.html $DEPLOY_DIR
+    cp -p ./out/index.css $DEPLOY_DIR
+    cp -p ./out/index.js $DEPLOY_DIR
+    cp -p ./out/lua-interop-worker.js $DEPLOY_DIR
+    cp -p ./out/lua-interop.wasm $DEPLOY_DIR
 
-    git add $TEMP_DIR
+    git add $DEPLOY_DIR
     git cm "Deploy v$version"
+    git push origin $DEPLOY_BRANCH
     git checkout -
 }
 
 echo "Deploying v$1"
-copy_artefacts_to_temp_dir
-preprare_deployment_branch
+recreate_deployment_branch
 publish_artifacts_to_deployment_branch
 echo "Done"
