@@ -16,5 +16,8 @@ jobs:
             - name: Run lua-runner tests
               run: ./bin/test-lua-runner
 
+            - name: Build
+              run: ./bin/build
+
             - name: "Deploy :rocket:"
               run: ./bin/deploy ${{ github.run_number }}
