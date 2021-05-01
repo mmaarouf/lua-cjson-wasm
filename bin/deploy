@@ -22,8 +22,7 @@ recreate_deployment_branch() {
 publish_artifacts_to_deployment_branch() {
     git checkout $DEPLOY_BRANCH
     if [[ -d $DEPLOY_DIR ]]; then
-        echo yo
-        git rm -r $DEPLOY_DIR
+        rm -rf $DEPLOY_DIR
     fi
 
     mkdir -p $DEPLOY_DIR
