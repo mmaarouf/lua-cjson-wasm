@@ -12,9 +12,9 @@ fi
 version=$1
 
 recreate_deployment_branch() {
+    git fetch
     if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
         git branch -D $DEPLOY_BRANCH
-        git push origin :$DEPLOY_BRANCH
     fi
     git branch $DEPLOY_BRANCH
 }
