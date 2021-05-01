@@ -16,12 +16,13 @@ recreate_deployment_branch() {
     git fetch
     if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
         git branch $DEPLOY_BRANCH
+        git push origin $DEPLOY_BRANCH:$DEPLOY_BRANCH
     fi
 }
 
 publish_artifacts_to_deployment_branch() {
     echo "Cleaning deployment dir '$DEPLOY_DIR'"
-    git checkout $DEPLOY_BRANCH
+    git checkout origin/$DEPLOY_BRANCH
     if [[ -d $DEPLOY_DIR ]]; then
         rm -rf $DEPLOY_DIR
     fi
@@ -37,7 +38,8 @@ publish_artifacts_to_deployment_branch() {
     echo "Publishing to branch '$DEPLOY_BRANCH'"
     git add $DEPLOY_DIR
     git commit -m "Deploy v$version"
-    git push -u origin $DEPLOY_BRANCH
+    git push origin $DEPLOY_BRANCH
+
     git checkout -
 }
 
