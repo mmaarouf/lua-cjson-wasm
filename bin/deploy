@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ -z $1 ]]; then
+    echo "Usage: ./bin/deploy [version]"
+    exit 1
+fi
+
+version=$1
+
+public_dir=/tmp/gh-pages
+
+rm -rf $public_dir
+mkdir -p $public_dir
+
+cp -p ./out/index.html $public_dir
+cp -p ./out/index.css $public_dir
+cp -p ./out/index.js $public_dir
+cp -p ./out/lua-interop-worker.js $public_dir
+cp -p ./out/lua-interop.wasm $public_dir
