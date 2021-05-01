@@ -12,7 +12,7 @@ fi
 version=$1
 
 recreate_deployment_branch() {
-    echo "Setting up deployment branch $DEPLOY_BRANCH"
+    echo "Setting up deployment branch '$DEPLOY_BRANCH'"
     git fetch
     if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
         git branch $DEPLOY_BRANCH
@@ -20,12 +20,13 @@ recreate_deployment_branch() {
 }
 
 publish_artifacts_to_deployment_branch() {
-    echo "Deploying artifacts.."
+    echo "Cleaning deployment dir '$DEPLOY_DIR'"
     git checkout $DEPLOY_BRANCH
     if [[ -d $DEPLOY_DIR ]]; then
         rm -rf $DEPLOY_DIR
     fi
 
+    echo "Copying artefacts into deployment dir '$DEPLOY_DIR'"
     mkdir -p $DEPLOY_DIR
     cp -p ./out/index.html $DEPLOY_DIR
     cp -p ./out/index.css $DEPLOY_DIR
@@ -33,9 +34,10 @@ publish_artifacts_to_deployment_branch() {
     cp -p ./out/lua-interop-worker.js $DEPLOY_DIR
     cp -p ./out/lua-interop.wasm $DEPLOY_DIR
 
+    echo "Publishing to branch '$DEPLOY_BRANCH'"
     git add $DEPLOY_DIR
     git commit -m "Deploy v$version"
-    git push origin $DEPLOY_BRANCH
+    git push -u origin $DEPLOY_BRANCH
     git checkout -
 }
 
