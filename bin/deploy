@@ -11,7 +11,7 @@ fi
 
 version=$1
 
-recreate_deployment_branch() {
+create_deployment_branch() {
     echo "Setting up deployment branch '$DEPLOY_BRANCH'"
     git fetch
     if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
@@ -44,6 +44,6 @@ publish_artifacts_to_deployment_branch() {
 }
 
 echo "Deploying v$1"
-recreate_deployment_branch
+create_deployment_branch
 publish_artifacts_to_deployment_branch
 echo "Done"
