@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+DEPLOY_BRANCH=github-pages
+DEPLOY_DIR=github-pages
+TEMP_DIR=/tmp/$DEPLOY_DIR
+
 if [[ -z $1 ]]; then
     echo "Usage: ./bin/deploy [version]"
     exit 1
@@ -8,15 +12,33 @@ fi
 
 version=$1
 
+copy_artefacts_to_temp_dir() {
+    rm -rf $TEMP_DIR
+    mkdir -p $TEMP_DIR
+
+    cp -p ./out/index.html $TEMP_DIR
+    cp -p ./out/index.css $TEMP_DIR
+    cp -p ./out/index.js $TEMP_DIR
+    cp -p ./out/lua-interop-worker.js $TEMP_DIR
+    cp -p ./out/lua-interop.wasm $TEMP_DIR
+}
+
+preprare_deployment_branch() {
+    if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
+        git branch $DEPLOY_BRANCH
+    fi
+    git checkout $DEPLOY_BRANCH
+}
+
+publish_artifacts_to_deployment_branch() {
+    git rm -rf $DEPLOY_DIR
+    cp -rp $TEMP_DIR .
+    git add $TEMP_DIR
+    git cm "Deploy v$version"
+}
+
 echo "Deploying v$1"
-
-public_dir=/tmp/gh-pages
-
-rm -rf $public_dir
-mkdir -p $public_dir
-
-cp -p ./out/index.html $public_dir
-cp -p ./out/index.css $public_dir
-cp -p ./out/index.js $public_dir
-cp -p ./out/lua-interop-worker.js $public_dir
-cp -p ./out/lua-interop.wasm $public_dir
+copy_artefacts_to_temp_dir
+preprare_deployment_branch
+publish_artifacts_to_deployment_branch
+echo "Done"
