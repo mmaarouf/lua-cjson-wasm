@@ -12,24 +12,22 @@ fi
 
 version=$1
 
-create_deployment_branch() {
+delte_existing_deployment_branch() {
     echo "Setting up deployment branch '$DEPLOY_BRANCH'"
     git fetch
-    if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
-        git branch $DEPLOY_BRANCH
-        git push origin $DEPLOY_BRANCH:$DEPLOY_BRANCH
+    if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
+        git branch -D $DEPLOY_BRANCH
+        git push origin :$DEPLOY_BRANCH
     fi
 }
 
 publish_artifacts_to_deployment_branch() {
     echo "Cleaning deployment dir '$DEPLOY_DIR'"
-    git checkout $DEPLOY_BRANCH
-    if [[ -d $DEPLOY_DIR ]]; then
-        rm -rf $DEPLOY_DIR
-    fi
+    git checkout -b $DEPLOY_BRANCH
+    rm -rf $DEPLOY_DIR
+    mkdir -p $DEPLOY_DIR
 
     echo "Copying artefacts into deployment dir '$DEPLOY_DIR'"
-    mkdir -p $DEPLOY_DIR
     cp -p ./out/index.html $DEPLOY_DIR
     cp -p ./out/index.css $DEPLOY_DIR
     cp -p ./out/index.js $DEPLOY_DIR
@@ -40,17 +38,14 @@ publish_artifacts_to_deployment_branch() {
 
     git add $DEPLOY_DIR
 
-    changes_exist=`git diff --cached --exit-code`
-    if [[ $changes_exist ]]; then
-        echo "Publishing to branch '$DEPLOY_BRANCH'"
-        git commit -m "Deploy v$version"
-        git push origin $DEPLOY_BRANCH
-    fi
+    echo "Publishing to branch '$DEPLOY_BRANCH'"
+    git commit -m "Deploy v$version"
+    git push origin $DEPLOY_BRANCH
 
     git checkout -
 }
 
 echo "Deploying v$1"
-create_deployment_branch
+delte_existing_deployment_branch
 publish_artifacts_to_deployment_branch
 echo "Done"
