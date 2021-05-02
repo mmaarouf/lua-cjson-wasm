@@ -17,7 +17,7 @@ delte_existing_deployment_branch() {
     git fetch
     if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
         git branch -D $DEPLOY_BRANCH
-        git push origin :$DEPLOY_BRANCH
+        git push origin --delete $DEPLOY_BRANCH
     fi
 }
 
