@@ -15,7 +15,8 @@ version=$1
 delte_existing_deployment_branch() {
     echo "Setting up deployment branch '$DEPLOY_BRANCH'"
     git fetch
-    git branch -a
+    echo 'ref heads'
+    ls .git/refs/heads
     if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
         git branch -D $DEPLOY_BRANCH
         git push origin --delete $DEPLOY_BRANCH
