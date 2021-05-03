@@ -27,22 +27,23 @@ body {
     min-width: 25rem;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
 }
 
-#script_area {
+textarea {
     height: 45rem;
     overflow-y: auto;
     resize: none;
-    border-color: #222;
     border-radius: 5px;
+    background-color: #313131;
+    border-color: #575757;
+    border-style: solid;
+    padding: 1rem;
+    color: white;
 }
 
-#result_area {
-    height: 45rem;
-    overflow-y: auto;
-    border-color: #222;
-    resize: none;
-    border-radius: 5px;
+textarea:focus {
+    outline: none;
 }
 
 .success {
@@ -54,34 +55,33 @@ body {
 }
 
 #run_button {
-    border-radius: 50%;
-    height: 3rem;
-    width: 3rem;
-    padding: 0.5rem;
-    background: #00e6db;
-    border: none;
-    margin: 2px;
+    border-style: solid;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    border-width: 2rem 0rem 2rem 4rem;
+    padding: 0;
+    border-color: transparent transparent transparent #00e6db;
+    margin: 0.5rem;
+    background: transparent;
     font-weight: bold;
-    color: #262626;
 }
 
 #run_button:hover {
-    background: #00d4ca;
+    border-color: transparent transparent transparent #00b8af;
 }
 
 #run_button:active {
-    background: #00bfb6;
-    color: black;
+    border-color: transparent transparent transparent #00918a;
 }
 
 #run_button .tooltiptext {
     visibility: hidden;
-    /* width: 120px; */
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px;
+    padding: 0.5rem;
     position: absolute;
     z-index: 1;
 }
