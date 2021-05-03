@@ -76,8 +76,6 @@ luac.out
 # Executables
 
 # End of https://www.toptal.com/developers/gitignore/api/c,lua
-
 *.wasm
 out/
-
-!github-pages
+!docs/
