@@ -3,7 +3,7 @@ set -e
 
 DEPLOY_BRANCH=github-pages
 
-DEPLOY_DIR=github-pages
+DEPLOY_DIR=docs
 
 if [[ -z $1 ]]; then
     echo "Usage: ./bin/deploy [version]"
