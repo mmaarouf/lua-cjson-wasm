@@ -32,9 +32,12 @@ jobs:
             - name: Build
               run: ./bin/build
     deploy:
-        - name: Deploy
-          if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-          run: |
-              git config --global user.name "GitHub Action"
-              git config --global user.email "github-action@users.noreply.github.com"
-              ./bin/deploy ${{ github.run_number }}
+        if: github.ref != 'refs/heads/github-pages'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy
+              if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+              run: |
+                  git config --global user.name "GitHub Action"
+                  git config --global user.email "github-action@users.noreply.github.com"
+                  ./bin/deploy ${{ github.run_number }}
