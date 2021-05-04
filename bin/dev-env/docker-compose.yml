@@ -1,5 +1,4 @@
 version: '3.2'
-# REPLACE ALL "lua-cjson-wasm" with the actual project name.
 services:
   lua-cjson-wasm-dev-env:
     container_name: 'lua-cjson-wasm-dev-env'
@@ -7,7 +6,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-       - ../..:/code
+      - ../..:/code
     working_dir: /code
     ports:
-        - "8080:8080"
+      - "8080:8080"
