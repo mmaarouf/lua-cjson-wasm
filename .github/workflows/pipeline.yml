@@ -46,6 +46,15 @@ jobs:
     needs: [test, build]
     runs-on: ubuntu-latest
     steps:
+      - name: Dockerhub log in
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
       - name: Restore build artefacts
         uses: actions/cache@v2
         with:
