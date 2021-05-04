@@ -1,4 +1,5 @@
 const getScriptTextArea = () => document.getElementById('script_area')
+
 const getResultTextArea = () => document.getElementById('result_area')
 
 const runLuaScript = () => {
@@ -9,7 +10,13 @@ const runLuaScript = () => {
 }
 
 const initPage = () => {
-    getScriptTextArea().innerHTML = "return 'hello world'"
+    const defaultScript = "local cjson = require 'cjson.safe'\n\n" +
+        'local greeting = {\n' +
+        "    hello = 'world'\n" +
+        '}\n\n' +
+        "return cjson.encode(greeting)"
+
+    getScriptTextArea().innerHTML = defaultScript
     runLuaScript()
 }
 
