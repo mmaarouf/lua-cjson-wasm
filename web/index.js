@@ -1,17 +1,24 @@
+const getScriptTextArea = () => document.getElementById('script_area')
+const getResultTextArea = () => document.getElementById('result_area')
+
 const runLuaScript = () => {
-    const luaScript = document.getElementById('script_area').value
-    luaInteropWorker.postMessage({name: 'run-lua', body: luaScript})
+    const scriptTextArea = getScriptTextArea()
+    luaInteropWorker.postMessage({name: 'run-lua', body: scriptTextArea.value})
+
+    scriptTextArea.className = 'loading'
 }
 
 const initPage = () => {
-    document.getElementById('script_area').innerHTML = "return 'hello world'"
+    getScriptTextArea().innerHTML = "return 'hello world'"
     runLuaScript()
 }
 
 const handleScriptResult = ({result, data}) => {
-    const resultTextarea = document.getElementById('result_area')
-    result_area.className = result === 'ok' ? 'success' : 'error'
-    resultTextarea.innerHTML = data
+    const resultTextArea = getResultTextArea()
+    resultTextArea.className = result === 'ok' ? 'success' : 'error'
+    resultTextArea.innerHTML = data
+
+    getScriptTextArea().className = undefined
 }
 
 const messageHandlers = {
@@ -31,6 +38,7 @@ const onRunClick = () => runLuaScript()
 
 const onScriptKeyUp = (e) => {
     const controlEnter = e.keyCode === 13 && e.ctrlKey
-    if (controlEnter)
-        runLuaScript();
+    if (controlEnter) {
+        runLuaScript()
+    }
 }

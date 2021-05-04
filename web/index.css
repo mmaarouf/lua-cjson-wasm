@@ -89,3 +89,7 @@ textarea:focus {
 #run_button:hover .tooltiptext {
   visibility: visible;
 }
+
+.loading {
+    background-color: #525252;
+}
