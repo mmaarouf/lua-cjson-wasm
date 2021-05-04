@@ -12,20 +12,19 @@ fi
 
 version=$1
 
-delte_existing_deployment_branch() {
+create_deployment_branch() {
     echo "Setting up deployment branch '$DEPLOY_BRANCH'"
     git pull
-    if [[ `git branch -a | grep $DEPLOY_BRANCH` ]]; then
-        git checkout $DEPLOY_BRANCH
+    if [[ -z `git branch -a | grep $DEPLOY_BRANCH` ]]; then
+        git branch $DEPLOY_BRANCH
+        git push origin $DEPLOY_BRANCH
         git checkout -
-        git branch -D $DEPLOY_BRANCH
-        git push origin --delete $DEPLOY_BRANCH
     fi
 }
 
 publish_artifacts_to_deployment_branch() {
     echo "Cleaning deployment dir '$DEPLOY_DIR'"
-    git checkout -b $DEPLOY_BRANCH
+    git checkout $DEPLOY_BRANCH
     rm -rf $DEPLOY_DIR
     mkdir -p $DEPLOY_DIR
 
@@ -48,6 +47,6 @@ publish_artifacts_to_deployment_branch() {
 }
 
 echo "Deploying v$1"
-delte_existing_deployment_branch
+create_deployment_branch
 publish_artifacts_to_deployment_branch
 echo "Done"
