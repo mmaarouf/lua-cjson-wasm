@@ -17,7 +17,6 @@ local function create_error_response(data)
 end
 
 function runner.run(script)
-
     local fn_to_run, err = loadstring(script)
     if not fn_to_run then
         return cjson.encode(create_error_response(err));

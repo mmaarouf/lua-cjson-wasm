@@ -5,11 +5,10 @@
 #include <lualib.h>
 #include <emscripten/emscripten.h>
 
-const char* SCRIPT_TEMPLATE = "return require('runner').run([[ %s ]])";
+const char* SCRIPT_TEMPLATE = "return require('runner').run([=====[ %s ]=====])";
 
 const char* copyString(const char* toCopy) {
     char* newstr = (char*) malloc(strlen(toCopy) + 1);
-
      if (newstr) {
          strcpy(newstr, toCopy);
      }
@@ -18,7 +17,6 @@ const char* copyString(const char* toCopy) {
 
 EMSCRIPTEN_KEEPALIVE
 const char* runLua(const char* script) {
-
     const int scriptLen = strlen(SCRIPT_TEMPLATE) + strlen(script);
     char fullScript[scriptLen];
     sprintf(fullScript, SCRIPT_TEMPLATE, script);
