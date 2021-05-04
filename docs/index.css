@@ -1,0 +1,91 @@
+body {
+    background: #262626;
+    color: white;
+}
+
+.content {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.rowContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width:70%;
+}
+
+.columnContainer {
+    width: 40%;
+    min-width: 25rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+textarea {
+    height: 45rem;
+    overflow-y: auto;
+    resize: none;
+    border-radius: 5px;
+    background-color: #313131;
+    border-color: #575757;
+    border-style: solid;
+    padding: 1rem;
+    color: white;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+#run_button {
+    border-style: solid;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    border-width: 2rem 0rem 2rem 4rem;
+    padding: 0;
+    border-color: transparent transparent transparent #00e6db;
+    margin: 0.5rem;
+    background: transparent;
+    font-weight: bold;
+}
+
+#run_button:hover {
+    border-color: transparent transparent transparent #00b8af;
+}
+
+#run_button:active {
+    border-color: transparent transparent transparent #00918a;
+}
+
+#run_button .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+}
+
+#run_button:hover .tooltiptext {
+  visibility: visible;
+}
