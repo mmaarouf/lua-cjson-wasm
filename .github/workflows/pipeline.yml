@@ -1,7 +1,7 @@
 name: pipeline
 on: [push, pull_request]
 jobs:
-    pipeline:
+    test:
         if: github.ref != 'refs/heads/github-pages'
         runs-on: ubuntu-latest
         steps:
@@ -16,13 +16,25 @@ jobs:
 
             - name: Run lua-runner tests
               run: ./bin/test-lua-runner
+    build:
+        if: github.ref != 'refs/heads/github-pages'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Dockerhub log in
+              uses: docker/login-action@v1
+              with:
+                  username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                  password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+            - name: Check out repository code
+              uses: actions/checkout@v2
 
             - name: Build
               run: ./bin/build
-
-            - name: Deploy
-              if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-              run: |
-                  git config --global user.name "GitHub Action"
-                  git config --global user.email "github-action@users.noreply.github.com"
-                  ./bin/deploy ${{ github.run_number }}
+    deploy:
+        - name: Deploy
+          if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          run: |
+              git config --global user.name "GitHub Action"
+              git config --global user.email "github-action@users.noreply.github.com"
+              ./bin/deploy ${{ github.run_number }}
