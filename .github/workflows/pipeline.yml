@@ -30,6 +30,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
+      - name: Cache build artefacts
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-build-artefacts
+        with:
+          path: ./out/
+        key: build-${{ github.run_number }}-artefacts
+
       - name: Build
         run: ./bin/build
 
@@ -38,6 +46,12 @@ jobs:
     needs: [test, build]
     runs-on: ubuntu-latest
     steps:
+      - name: Restore build artefacts
+        uses: actions/cache@v2
+        with:
+          path: ./out/
+          key: build-${{ github.run_number }}-artefacts
+
       - name: Deploy
         run: |
           git config --global user.name "GitHub Action"
