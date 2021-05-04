@@ -47,11 +47,11 @@ textarea:focus {
 }
 
 .success {
-    color: green;
+    color: #00e6db;
 }
 
 .error {
-    color: red;
+    color: #ff639c;
 }
 
 #run_button {
@@ -88,4 +88,8 @@ textarea:focus {
 
 #run_button:hover .tooltiptext {
   visibility: visible;
+}
+
+.loading {
+    background-color: #525252;
 }
