@@ -36,7 +36,7 @@ jobs:
           cache-name: cache-build-artefacts
         with:
           path: ./out/
-        key: build-${{ github.run_number }}-artefacts
+          key: build-${{ github.run_number }}-artefacts
 
       - name: Build
         run: ./bin/build
