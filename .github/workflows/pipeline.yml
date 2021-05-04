@@ -16,6 +16,7 @@ jobs:
 
             - name: Run lua-runner tests
               run: ./bin/test-lua-runner
+
     build:
         if: github.ref != 'refs/heads/github-pages'
         runs-on: ubuntu-latest
@@ -31,13 +32,13 @@ jobs:
 
             - name: Build
               run: ./bin/build
+
     deploy:
-        if: github.ref != 'refs/heads/github-pages'
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         needs: [test, build]
         runs-on: ubuntu-latest
         steps:
             - name: Deploy
-              if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
               run: |
                   git config --global user.name "GitHub Action"
                   git config --global user.email "github-action@users.noreply.github.com"
