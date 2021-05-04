@@ -33,6 +33,7 @@ jobs:
               run: ./bin/build
     deploy:
         if: github.ref != 'refs/heads/github-pages'
+        needs: [test, build]
         runs-on: ubuntu-latest
         steps:
             - name: Deploy
