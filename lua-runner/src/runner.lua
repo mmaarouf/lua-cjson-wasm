@@ -5,7 +5,7 @@ local runner = {}
 local function create_ok_response(data)
     return {
         result = 'ok',
-        data = data
+        data = tostring(data)
     }
 end
 

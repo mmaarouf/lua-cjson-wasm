@@ -20,20 +20,20 @@ describe('runner', function()
         assert.equals(expected, actual)
     end)
 
-    it('should serialise the data if function returns a table', function()
-       local script = 'return { greeting = "hello" }'
-
-       local actual = runner.run(script)
-       local expected = '{"result":"ok","data":{"greeting":"hello"}}'
-
-       assert.equals(expected, actual)
-    end)
-
     it('should return luac error when script is malformed', function()
         local script = 'a =? "hi"'
 
         local actual = runner.run(script)
         local expected = '{"result":"error","data":"[string \\"a =? \\"hi\\"\\"]:1: unexpected symbol near \'?\'"}'
+
+        assert.equals(expected, actual)
+    end)
+
+    it('should return a stringified return value', function()
+        local script = 'return nil'
+
+        local actual = runner.run(script)
+        local expected = '{"result":"ok","data":"nil"}'
 
         assert.equals(expected, actual)
     end)
