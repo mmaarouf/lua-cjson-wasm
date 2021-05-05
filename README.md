@@ -8,11 +8,11 @@ Project to demo executing lua code that dynamically loads a dynamically loads a 
 
 ## How it works
 
-* When "RUN" is clicked, the lua script is passed to [`lua_interop`](/lua-interop/lua_interop.c)
-* The module will pass the script to be executed to the lua runtime in the [`runner.lua`](/lua-runner/src/runner.lua) module
-* The result of the script is wrapped in a "result" lua table, serialised to JSON using the [lua-cjson](https://github.com/openresty/lua-cjson/) library and then returned
+* When play button is clicked, the lua script is passed to [`lua_interop`](/lua-interop/lua_interop.c)
+* `lua_interop` will use [`runner.lua`](/lua-runner/src/runner.lua) to execute the script
+* `runner.lua` will wrap the script's return value in a "result" table, serialise it JSON using the [lua-cjson](https://github.com/openresty/lua-cjson/) library and then return it back to `lua_interop`
 * `lua_interop` will pass the result back to the webpage
-* The webpage will parse the json and display the result on the screen with green/red highlighting based on the result status
+* The webpage will parse the JSON and display the result on the screen with green-ish/red-ish highlighting based on the result status
 
 ### Compiling the WebAssembly modules
 
