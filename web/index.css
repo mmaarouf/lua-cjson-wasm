@@ -19,7 +19,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width:70%;
+    width:80%;
 }
 
 .columnContainer {
@@ -31,7 +31,7 @@ body {
 }
 
 textarea {
-    height: 45rem;
+    height: 40rem;
     overflow-y: auto;
     resize: none;
     border-radius: 5px;
