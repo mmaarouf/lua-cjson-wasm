@@ -38,4 +38,13 @@ describe('runner', function()
         assert.equals(expected, actual)
     end)
 
+    it('should return multipe returned values in stringified form', function()
+        local script = 'return "hello", "world"'
+
+        local actual = runner.run(script)
+        local expected = '{"result":"ok","data":"hello,world"}'
+
+        assert.equals(expected, actual)
+    end)
+
 end)
