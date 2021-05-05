@@ -2,7 +2,9 @@
 
 Project to demo executing lua code that dynamically loads a dynamically loads a shared library (lua-cjson) in the browser using WebAssembly.
 
-[See it in action here](https://mmaarouf.github.io/lua-cjson-wasm/).
+![demo](/demo.gif)
+
+[Try it out here](https://mmaarouf.github.io/lua-cjson-wasm/).
 
 ## How it works
 
